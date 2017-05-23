@@ -1,0 +1,146 @@
+{% extends "mainblueprint.html" %}
+{% block title %}Reports{% endblock %}
+{% block head %}
+  {{ super() }}
+    <meta http-equiv="refresh" content="20">
+
+    <!-- Graph javascript -->
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <script src="/static/graph.js"></script>
+{% endblock %}
+
+{% block list %}
+<li>
+  <a href="/profile" style="padding-top: 15px; padding-bottom: 15px;">
+<div class="chip space">
+  <img src="/static/profile_icon.png" alt="Person" width="96" height="96">
+  {{ username }}
+</div>
+  </a>
+</li>
+<li><a href="/index"><i class="fa fa-video-camera" aria-hidden="true"></i> Home</a></li>
+<li><a href="/recordings"><i class="fa fa-file-video-o" aria-hidden="true"></i> Recordings</a></li>
+<li class="active"><a href="/reports"><i class="fa fa-line-chart" aria-hidden="true"></i> Reports</a></li>
+<li><a href="/logout" style="color: #0088af; font-weight: bold"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+{% endblock %}
+
+
+{% block content %}
+
+<h2>Dashboard</h2>
+
+<hr>
+
+<!--Header-->
+<div class="optionbutton">
+    <h2>
+      <small class="text-muted">Summary</small>
+    </h2>
+</div>
+<div class="optionbutton">
+    <a  href="#" id="reports" title="Information" style="color: #0088af"
+            data-content="Breakdown of current events. 24 Hour time format is used.">
+        <i class="fa fa-info-circle" aria-hidden="true"></i>
+    </a>
+</div>
+
+<!--Top boxes-->
+<div class="row">
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3>{{ to[0] }}</h3>
+              <p>Motion: Today</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-line-chart" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <!-- ./col -->
+    <!--Second box-->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <h3>{{ weekly }}</h3>
+              <p>Motion: Last 7 days</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-bar-chart" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <!-- ./col -->
+    <!--Third box-->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3>{{ uptime }} </h3>
+
+              <p>Up time -<small style="color:white;"> Hours</small></p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-clock-o" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <!-- ./col -->
+    <!--Fourth Box-->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-red">
+            <div class="inner">
+              <h3>{{ mostcommon[0] }} {{ timemark }}</h3>
+
+              <p>Busiest hour: All time</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-shield" aria-hidden="true"></i>
+            </div>
+          </div>
+        </div>
+        <!-- ./col -->
+      </div>
+
+<!--first Graph-->
+<h2>
+  <small class="text-muted">Weekly</small>
+</h2>
+
+    <div class="well carousel-search hidden-phone">
+            <div id={{chartID}} class="chart" style="height: auto; width: auto">
+                <script>
+                    var chart_id = {{chartID|safe}}
+                    var series = {{series|safe}}
+                    var title = {{title|safe}}
+                    var xAxis = {{xAxis|safe}}
+                    var yAxis = {{yAxis|safe}}
+                    var chart = {{chart|safe}}
+                </script>
+            </div>
+    </div>
+
+<!--Second graph-->
+<h2>
+  <small class="text-muted">Daily</small>
+</h2>
+        <div class="well carousel-search hidden-phone">
+            <h4 style="color:black;" align="center">{{ YesterdaysDate }}</h4>
+           <iframe src="/secondGraph" width="100%" height="520px" scrolling="no" frameborder="0"></iframe>
+        </div>
+
+
+
+{% endblock %}
+
+{% block body %}
+<script>
+$(function () {
+    $('#reports').popover()
+})
+</script>
+{% endblock %}

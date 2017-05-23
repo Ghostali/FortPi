@@ -1,0 +1,51 @@
+{% extends "mainblueprint.html" %}
+{% block title %}CCTV{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block list %}
+<li>
+  <a href="/profile" style="padding-top: 15px; padding-bottom: 15px;">
+<div class="chip space">
+  <img src="/static/profile_icon.png" alt="Person" width="96" height="96">
+  {{ username }}
+</div>
+  </a>
+</li>
+<li class="active"><a href="/index"><i class="fa fa-video-camera" aria-hidden="true"></i> Home</a></li>
+<li><a href="/recordings"><i class="fa fa-file-video-o" aria-hidden="true"></i> Recordings</a></li>
+<li><a href="/reports"><i class="fa fa-line-chart" aria-hidden="true"></i> Reports</a></li>
+<li><a href="/logout" style="color: #0088af; font-weight: bold"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+{% endblock %}
+
+{% block content %}
+<br>
+
+
+<div id="loader"></div>
+
+<div id="myDiv" class="animate-bottom">
+  <center><h3>Live video feed</h3></center>
+<img src="{{ url_for('imgstream_feed') }}" class="img-responsive"/>
+</div>
+
+<br>
+
+{% endblock %}
+
+
+{% block body %}
+<script>
+var myVar;
+
+function myFunction() {
+    myVar = setTimeout(showPage, 0);
+}
+
+function showPage() {
+  document.getElementById("loader").style.display = "none";
+  document.getElementById("myDiv").style.display = "block";
+}
+</script>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "mainblueprint.html" %}
+{% block title %}Change Password{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block list %}
+<li>
+  <a href="/profile" style="padding-top: 15px; padding-bottom: 15px;">
+<div class="chip space">
+  <img src="/static/profile_icon.png" alt="Person" width="96" height="96">
+  {{ username }}
+</div>
+  </a>
+</li>
+<li><a href="/index"><i class="fa fa-video-camera" aria-hidden="true"></i> Home</a></li>
+<li><a href="/recordings"><i class="fa fa-file-video-o" aria-hidden="true"></i> Recordings</a></li>
+<li><a href="/reports"><i class="fa fa-line-chart" aria-hidden="true"></i> Reports</a></li>
+<li><a href="/logout" style="color: #0088af; font-weight: bold"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+{% endblock %}
+
+{% block content %}
+<br>
+
+<center>
+  <div class="card">
+  <div class="cardcontainer">
+    <form action="" method="post">
+      <h3>Change username</h3>
+    <div class="form-group">
+      <input type="text" class="form-control" name="oldusername" placeholder="Current username" value="{{
+      request.form.oldusername }}">
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" name="newusername" placeholder="New username" value="{{
+      request.form.newusername }}">
+    </div>
+        <button class="btn btn-info" type="submit" value="changeuser">
+              <i class="fa fa-sign-in" aria-hidden="true"></i> Submit </button>
+      <br>
+          {% if error %}
+          <div class="alert alert-danger">
+            <strong class="error"><strong>Error:</strong> {{ error }}</strong> </div>
+            {% endif %}
+          {% for message in get_flashed_messages() %}
+            <div class="alert alert-info"> <strong class="error">{{ message }}</strong> </div>
+          {% endfor %}
+    </form>
+
+
+  </div>
+</div>
+</center>
+<br>
+
+{% endblock %}
+

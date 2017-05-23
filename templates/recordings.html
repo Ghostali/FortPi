@@ -1,0 +1,60 @@
+{% extends "mainblueprint.html" %}
+{% block title %}Recordings{% endblock %}
+{% block head %}
+  {{ super() }}
+{% endblock %}
+
+{% block list %}
+<li>
+  <a href="/profile" style="padding-top: 15px; padding-bottom: 15px;">
+<div class="chip space">
+  <img src="/static/profile_icon.png" alt="Person" width="96" height="96">
+  {{ username }}
+</div>
+  </a>
+</li>
+<li><a href="/index"><i class="fa fa-video-camera" aria-hidden="true"></i> Home</a></li>
+<li class="active"><a href="/recordings"><i class="fa fa-file-video-o" aria-hidden="true"></i> Recordings</a></li>
+<li><a href="/reports"><i class="fa fa-line-chart" aria-hidden="true"></i> Reports</a></li>
+<li><a href="/logout" style="color: #0088af; font-weight: bold"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="space optionbutton">
+    <h2>Recordings <small class="text-muted"> today</small></h2>
+</div>
+<div class="space optionbutton">
+    <a href="https://www.dropbox.com" class="btn btn-info" role="button" title="Dropbox">View older
+        <i class="fa fa-dropbox" aria-hidden="true"></i></a>
+</div>
+
+
+<hr>
+
+    {% for video_name in video_names %}
+
+    <table class="table table-bordered table-sm">
+         <thead>
+  <tr>
+    <th>File name</th>
+    <th>Download link</th>
+  </tr>
+         </thead>
+        <tbody>
+  <tr>
+    <td>{{ video_name }}</td>
+    <td>
+        <a href="{{url_for('send_video', filename=video_name)}}" download style="color: #0088af;">
+            <i class="fa fa-cloud-download fa-5x" title="{{ video_name }}" aria-hidden="true"></i>
+        </a>
+    </td>
+  </tr>
+        </tbody>
+</table>
+
+        {% endfor %}
+
+
+{% endblock %}

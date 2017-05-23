@@ -1,0 +1,39 @@
+{% extends "blueprint.html" %}
+{% block title %}Login{% endblock %}
+{% block head %}
+  {{ super() }}
+<link href="/static/login.css" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <h1 class="text-center login-title">Sign in to view stream</h1>
+            <div class="account-wall">
+                <img class="profile-img" src="/static/loginicon.png"
+                    alt="">
+      <form class="form-signin" action="" method="post">
+        <input type="text" class="form-control" placeholder="Username" name="username" value="{{
+          request.form.username }}">
+         <input type="password" class="form-control" placeholder="Password" name="password" value="{{
+          request.form.password }}">
+        <button class="btn btn-lg btn-primary btn-block" type="submit" value="Login">
+            <i class="fa fa-sign-in" aria-hidden="true"></i> Sign in </button>
+          <br>
+
+            {% if error %}
+          <div class="alert alert-danger">
+            <strong class="error"><strong>Error:</strong> {{ error }}</strong>
+          </div>
+            {% endif %}
+
+            {% for message in get_flashed_messages() %}
+              <div class="alert alert-info"> <strong class="error">{{ message }}</strong> </div>
+            {% endfor %}
+
+      </form>
+            </div>
+        </div>
+  </div>
+{% endblock %}
+
